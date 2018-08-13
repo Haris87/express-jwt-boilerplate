@@ -25,6 +25,6 @@ You can check all routes and examples by importing `./express-boilerplate.postma
 [![haris87]][me]
 
 [me]: https://github.com/Haris87
-[logo]: https://i.imgur.com/m6yvH5n.png
+[logo]: https://i.imgur.com/5yFFD6Q.png
 [haris87]: https://i.imgur.com/1Mwlga2.png
 [postman]: https://www.getpostman.com/
