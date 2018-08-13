@@ -11,6 +11,7 @@ const swaggerDocument = require("./swagger.json");
 const jwt = require("./middlewares/jwt");
 
 const db = require("./helpers/db");
+const exception = require("./helpers/exception");
 
 const index = require("./controllers/index");
 const auth = require("./controllers/auth");
@@ -49,7 +50,8 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next({ status: 404, error: "Route not found" });
+  throw exception(404, "Route not found");
+  // next();
 });
 
 // error handler

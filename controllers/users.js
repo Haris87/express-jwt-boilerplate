@@ -17,9 +17,7 @@ function getUsers(req, res, next) {
     .then(users => {
       res.send(users);
     })
-    .catch(error => {
-      next(error);
-    });
+    .catch(next);
 }
 
 module.exports = router;

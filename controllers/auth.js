@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const hash = require("../helpers/hash");
 const mailer = require("../helpers/mailer");
+const exception = require("../helpers/exception");
+
 const router = express.Router();
 require("dotenv").config();
 
@@ -38,12 +40,10 @@ function loginUser(req, res, next) {
         const token = jwt.sign({ user: user }, process.env.JWT_SECRET);
         res.send({ token: token });
       } else {
-        throw { status: 401, error: "Wrong credentials" };
+        throw exception(401, "Wrong credentials");
       }
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 }
 
 function registrerUser(req, res, next) {
@@ -66,9 +66,7 @@ function registrerUser(req, res, next) {
 
       res.send({ token: token });
     })
-    .catch(err => {
-      next(err);
-    });
+    .catch(next);
 }
 
 function forgotPassword(req, res, next) {
@@ -100,9 +98,7 @@ function forgotPassword(req, res, next) {
     .then(response => {
       res.send({ message: "Email sent." });
     })
-    .catch(error => {
-      next(error);
-    });
+    .catch(next);
 }
 
 module.exports = router;

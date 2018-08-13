@@ -39,9 +39,7 @@ function updateUser(req, res, next) {
     .then(user => {
       res.send(user);
     })
-    .catch(error => {
-      next(error);
-    });
+    .catch(next);
 }
 
 function changePassword(req, res, next) {
@@ -66,9 +64,7 @@ function changePassword(req, res, next) {
     .then(user => {
       res.send({ message: "Password updated successfully" });
     })
-    .catch(error => {
-      next(error);
-    });
+    .catch(next);
 }
 
 module.exports = router;
