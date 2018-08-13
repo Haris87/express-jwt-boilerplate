@@ -20,11 +20,14 @@ You can check all routes and examples by importing `./express-boilerplate.postma
 
 ---
 
-###### Made by [me]
+###### Contributors
 
-[![haris87]][me]
+[![haris87]][harisprofile]
+[![tasos]][tasosprofile]
 
-[me]: https://github.com/Haris87
+[harisprofile]: https://github.com/Haris87
+[tasosprofile]: https://github.com/SirukakSosta
 [logo]: https://i.imgur.com/5yFFD6Q.png
-[haris87]: https://i.imgur.com/1Mwlga2.png
+[haris87]: https://i.imgur.com/Hr3XSzo.png
 [postman]: https://www.getpostman.com/
+[tasos]: https://i.imgur.com/IoHzuz2.png
