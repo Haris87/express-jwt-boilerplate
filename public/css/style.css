@@ -169,6 +169,15 @@ body {
     #7677fc,
     #5c77f9
   );
+
+  background-image: radial-gradient(
+    circle,
+    #ff8c74,
+    #ff9e69,
+    #ffb260,
+    #ffc85a,
+    #f9de5c
+  );
 }
 
 html {
