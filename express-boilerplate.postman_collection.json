@@ -1,0 +1,170 @@
+{
+	"variables": [],
+	"info": {
+		"name": "express-boilerplate",
+		"_postman_id": "600561ee-5c09-e8b9-ca02-156a630f4700",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth register user",
+			"request": {
+				"url": "localhost:3000/auth/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"guest\",\n  \"email\": \"b3116601@nwytg.net\",\n  \"password\": \"guest\"\n}"
+				},
+				"description": "auth register user"
+			},
+			"response": []
+		},
+		{
+			"name": "auth login user",
+			"request": {
+				"url": "localhost:3000/auth/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"guest\",\n\t\"password\": \"guest\"\n}"
+				},
+				"description": "auth login user"
+			},
+			"response": []
+		},
+		{
+			"name": "auth forgot password",
+			"request": {
+				"url": "localhost:3000/auth/forgot",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"b3116601@nwytg.net\"\n}"
+				},
+				"description": "auth forgot password"
+			},
+			"response": []
+		},
+		{
+			"name": "me get",
+			"request": {
+				"url": "localhost:3000/me",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViNzE3MWUyMGE1NDdjMTQ5YzJhYTQyNCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJlbWFpbCI6ImIzMTE2NjAxQG53eXRnLm5ldCIsImNyZWF0ZWRBdFVUQyI6IjIwMTgtMDgtMTNUMTE6NTY6MTguNTU2WiIsIl9fdiI6MH0sImlhdCI6MTUzNDE2MTQ4NH0.00EOrP0mPmqMRAOG5FUf537Alume-tXe32QuOmtbqh0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"guest\",\n\t\"password\": \"c42d47602bc29f89644841702ca0ebf6\"\n}"
+				},
+				"description": "me get"
+			},
+			"response": []
+		},
+		{
+			"name": "me change password",
+			"request": {
+				"url": "localhost:3000/me",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViNzE3MWUyMGE1NDdjMTQ5YzJhYTQyNCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJlbWFpbCI6ImIzMTE2NjAxQG53eXRnLm5ldCIsImNyZWF0ZWRBdFVUQyI6IjIwMTgtMDgtMTNUMTE6NTY6MTguNTU2WiIsIl9fdiI6MH0sImlhdCI6MTUzNDE2MTQ4NH0.00EOrP0mPmqMRAOG5FUf537Alume-tXe32QuOmtbqh0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"guest\",\n\t\"oldPassword\": \"c42d47602bc29f89644841702ca0ebf6\",\n\t\"newPassword\": \"guest\"\n}"
+				},
+				"description": "me change password"
+			},
+			"response": []
+		},
+		{
+			"name": "me update",
+			"request": {
+				"url": "localhost:3000/me",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViNzE3MWUyMGE1NDdjMTQ5YzJhYTQyNCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJlbWFpbCI6ImIzMTE2NjAxQG53eXRnLm5ldCIsImNyZWF0ZWRBdFVUQyI6IjIwMTgtMDgtMTNUMTE6NTY6MTguNTU2WiIsIl9fdiI6MH0sImlhdCI6MTUzNDE2MTQ4NH0.00EOrP0mPmqMRAOG5FUf537Alume-tXe32QuOmtbqh0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\": \"guest\",\n\t\"oldPassword\": \"c42d47602bc29f89644841702ca0ebf6\",\n\t\"newPassword\": \"guest\"\n}"
+				},
+				"description": "me update"
+			},
+			"response": []
+		},
+		{
+			"name": "users get all",
+			"request": {
+				"url": "localhost:3000/users",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjViNzE3MWUyMGE1NDdjMTQ5YzJhYTQyNCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJlbWFpbCI6ImIzMTE2NjAxQG53eXRnLm5ldCIsImNyZWF0ZWRBdFVUQyI6IjIwMTgtMDgtMTNUMTE6NTY6MTguNTU2WiIsIl9fdiI6MH0sImlhdCI6MTUzNDE2MTQ4NH0.00EOrP0mPmqMRAOG5FUf537Alume-tXe32QuOmtbqh0",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"express.jwt.boilerplate@gmail.com\"\n}"
+				},
+				"description": "users get all"
+			},
+			"response": []
+		}
+	]
+}

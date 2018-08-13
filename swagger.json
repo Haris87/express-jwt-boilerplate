@@ -1,0 +1,193 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Express Boilerplate",
+    "description": "API for Express Boilerplate"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "securityDefinitions": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "http://localhost:3000/login",
+      "scopes": {},
+      "x-skip-client-authentication": false
+    }
+  },
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "description": "auth register user",
+        "summary": "auth register user",
+        "tags": ["Authorization"],
+        "operationId": "AuthRegisterPost",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthRegisterUserrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/auth/register",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"username\":\"haris\",\"email\":\"haris@atc.gr\",\"password\":\"haris\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "auth register user",
+            "x-testDescription": "auth register user"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "description": "auth login",
+        "summary": "auth login",
+        "tags": ["Authorization"],
+        "operationId": "AuthLoginPost",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthLoginrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/auth/login",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"username\":\"haris\",\"password\":\"haris\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "auth login",
+            "x-testDescription": "auth login"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    },
+    "/auth/forgot": {
+      "post": {
+        "description": "auth forgot password",
+        "summary": "auth forgot password",
+        "tags": ["Authorization"],
+        "operationId": "AuthForgotPost",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AuthForgotPasswordrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [],
+        "x-unitTests": [
+          {
+            "request": {
+              "method": "POST",
+              "uri": "/auth/forgot",
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": "{\"email\":\"mpouxlhs.xar@gmail.com\"}"
+            },
+            "expectedResponse": {
+              "x-allowExtraHeaders": true,
+              "x-bodyMatchMode": "NONE",
+              "x-arrayOrderedMatching": false,
+              "x-arrayCheckCount": false,
+              "x-matchResponseSchema": true,
+              "headers": {}
+            },
+            "x-testShouldPass": true,
+            "x-testEnabled": true,
+            "x-testName": "auth forgot password",
+            "x-testDescription": "auth forgot password"
+          }
+        ],
+        "x-operation-settings": {
+          "CollectParameters": false,
+          "AllowDynamicQueryParameters": false,
+          "AllowDynamicFormParameters": false,
+          "IsMultiContentStreaming": false
+        }
+      }
+    }
+  },
+  "definitions": {}
+}
