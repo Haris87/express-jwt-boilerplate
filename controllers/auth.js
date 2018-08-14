@@ -62,8 +62,6 @@ function registrerUser(req, res, next) {
     })
     .then(safeUser => {
       const token = jwt.sign({ user: safeUser }, process.env.JWT_SECRET);
-      console.log(safeUser);
-
       res.send({ token: token });
     })
     .catch(next);

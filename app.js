@@ -38,12 +38,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", index);
-
 app.use("/auth", auth);
 
 // restricted access routes
 app.use("/me", jwt, me);
-app.use("/users", users);
+app.use("/users", jwt, users); // route for testing only, should be removed after real deployment
 
 // swagger documentation
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -51,7 +50,6 @@ app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   throw exception(404, "Route not found");
-  // next();
 });
 
 // error handler
@@ -60,13 +58,8 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
-  console.log(err);
-
   // respond with error
   res.status(err.status || 500).send(err);
-
-  // render the error page
-  // res.render("error");
 });
 
 module.exports = app;

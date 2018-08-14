@@ -4,29 +4,62 @@ const User = require("../models/user");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const server = require("../app");
+const faker = require("faker");
 const should = chai.should();
 
 chai.use(chaiHttp);
 //Our parent block
-describe("Users", () => {
-  beforeEach(done => {
-    //Before each test we empty the database
-    User.remove({}, err => {
-      done();
-    });
-  });
+describe("Auth", () => {
+  // beforeEach(done => {
+  //   //Before each test we empty the database
+  //   User.find({}, err => {
+  //     done();
+  //   });
+  // });
+
+  const _user = {
+    username: "test",
+    email: "test@test.com",
+    password: "test"
+  };
+
   /*
-  * Test the /GET route
+  * User Resgistration
   */
-  describe("/GET users", () => {
-    it("it should GET all the users", done => {
+  describe("/POST auth/register", () => {
+    it("it should create new user", done => {
+      let user = _user;
       chai
         .request(server)
-        .get("/users")
+        .post("/auth/register")
+        .send(user)
         .end((err, res) => {
           res.should.have.status(200);
-          res.body.should.be.a("array");
-          res.body.length.should.be.eql(0);
+          res.body.should.be.a("object");
+          res.body.should.have.property("token");
+          done();
+        });
+    });
+  });
+
+  /*
+  * User Login
+  */
+  describe("/POST auth/login", () => {
+    it("it should login user", done => {
+      let user = {
+        username: _user.username,
+        password: _user.password
+      };
+
+      chai
+        .request(server)
+        .post("/auth/login")
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a("object");
+          res.body.should.have.property("token");
           done();
         });
     });
