@@ -5,7 +5,7 @@
 Basic user functionality with registration, login and forgot password.
 JWT middleware to authenticate requests.
 
-![build] ![dependencies]
+[![Build Status](https://travis-ci.com/Haris87/express-jwt-boilerplate.svg?token=Gfafs83VMy5maXrgNaRR&branch=master)](https://travis-ci.com/Haris87/express-jwt-boilerplate) 
 ---
 
 ### Configuration
