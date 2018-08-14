@@ -1,10 +1,8 @@
-const crypto = require("crypto");
+const { SHA256 } = require("crypto-js");
 
 module.exports = function hash(input) {
-  if (input === null || input === undefined)
+  // Hashing default values like '' or 0 is unsafe
+  if (!!input)
     throw { error: "Can not hash null input." };
-  return crypto
-    .createHash("md5")
-    .update(input)
-    .digest("hex");
+  return SHA256(input);
 };
