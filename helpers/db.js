@@ -14,8 +14,8 @@ const connect = () => {
       }
     }
   );
-  // The substring essentially gets the actual URL of the DB
-  console.log(`${chalk.green('MongoDB')}: Successfully connected to ${connectionURL.substring(connectionURL.indexOf('@') + 1, connectionURL.indexOf(':', connectionURL.indexOf('@')))}`);
+  // Regex with positive look-ahead and look-behind
+  console.log(`${chalk.green('MongoDB')}: Successfully connected to ${connectionURL.match(/(?<=@).*(?=:)/g)}`);
 }
 
 const errorHandler = (schema) => {
