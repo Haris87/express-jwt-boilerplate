@@ -1,65 +1,48 @@
-const mongoose = require("mockgoose");
-const User = require("../models/user");
+const Mongoose = require("mongoose").Mongoose;
+const mongoose = new Mongoose();
+
+const Mockgoose = require("mockgoose").Mockgoose;
+const mockgoose = new Mockgoose(mongoose);
 
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const server = require("../app");
 const faker = require("faker");
 const should = chai.should();
+require("dotenv").config();
+
+const User = require("../models/user");
+const server = require("../app");
 
 chai.use(chaiHttp);
+
+const _user = {
+  username: "test",
+  password: "test"
+};
+
+let _token;
+
 //Our parent block
 describe("Users", () => {
-  before(done => {
-    //Before each test we empty the database
-    User.remove({}, err => {
-      done();
-    });
-  });
-
-  const _user = {
-    username: "test",
-    email: "test@test.com",
-    password: "test"
-  };
-
-  let _token;
-
-  /*
-  * User Resgistration
-  */
-  describe("/POST auth/register", () => {
-    it("it should create new user", done => {
-      let user = _user;
-      chai
-        .request(server)
-        .post("/auth/register")
-        .send(user)
-        .end((err, res) => {
-          done();
-        });
-    });
-  });
-
-  /*
-  * User Login
-  */
-  describe("/POST auth/login", () => {
-    it("it should login user", done => {
-      let user = {
-        username: _user.username,
-        password: _user.password
-      };
-
-      chai
-        .request(server)
-        .post("/auth/login")
-        .send(user)
-        .end((err, res) => {
-          _token = res.body.token;
-          done();
-        });
-    });
+  before(function(done) {
+    mockgoose
+      .prepareStorage()
+      .then(function() {
+        //connect to db
+        return mongoose.connect(process.env.CONNECTION_URL);
+      })
+      .then(connection => {
+        // login with user
+        return chai
+          .request(server)
+          .post("/auth/login")
+          .send(_user);
+      })
+      .then(res => {
+        // retrieve and save token
+        _token = res.body.token;
+        done();
+      });
   });
 
   /*

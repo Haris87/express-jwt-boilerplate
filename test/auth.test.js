@@ -1,21 +1,36 @@
-const mongoose = require("mockgoose");
-const User = require("../models/user");
+const Mongoose = require("mongoose").Mongoose;
+const mongoose = new Mongoose();
+
+const Mockgoose = require("mockgoose").Mockgoose;
+const mockgoose = new Mockgoose(mongoose);
 
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const server = require("../app");
 const faker = require("faker");
 const should = chai.should();
+require("dotenv").config();
+
+const User = require("../models/user");
+const server = require("../app");
 
 chai.use(chaiHttp);
 //Our parent block
 describe("Auth", () => {
-  // beforeEach(done => {
-  //   //Before each test we empty the database
-  //   User.find({}, err => {
-  //     done();
-  //   });
-  // });
+  before(done => {
+    mockgoose
+      .prepareStorage()
+      .then(function() {
+        //connect to db
+        return mongoose.connect(process.env.CONNECTION_URL);
+      })
+      .then(connection => {
+        // empty mock db
+        return User.remove({});
+      })
+      .then(res => {
+        done();
+      });
+  });
 
   const _user = {
     username: "test",
