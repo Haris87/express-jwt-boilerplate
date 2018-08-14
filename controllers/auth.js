@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const hash = require("../helpers/hash");
 const mailer = require("../helpers/mailer");
-const HTTPException = require("./helpers/http-exception");
+const HTTPException = require("../helpers/http-exception");
 
 const router = express.Router();
 require("dotenv").config();

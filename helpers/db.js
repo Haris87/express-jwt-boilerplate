@@ -18,7 +18,7 @@ const connect = () => {
   console.log(`${chalk.green('MongoDB')}: Successfully connected to ${connectionURL.substring(connectionURL.indexOf('@') + 1, connectionURL.indexOf(':', connectionURL.indexOf('@')))}`);
 }
 
-const errorHandler = () => {
+const errorHandler = (schema) => {
   schema.post("save", (error, doc, next) => {
     if (error.name === "MongoError" && error.code === 11000) {
       const field = error.message.split(".$")[1].split("_1")[0];
