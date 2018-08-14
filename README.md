@@ -5,6 +5,7 @@
 Basic user functionality with registration, login and forgot password.
 JWT middleware to authenticate requests.
 
+![build] ![dependencies]
 ---
 
 ### Configuration
@@ -31,3 +32,6 @@ You can check all routes and examples by importing `./express-boilerplate.postma
 [haris87]: https://i.imgur.com/Hr3XSzo.png
 [postman]: https://www.getpostman.com/
 [tasos]: https://i.imgur.com/IoHzuz2.png
+
+[build]: https://api.travis-ci.org/Haris87/express-jwt-boilerplate.png?branch=master
+[dependencies]: https://david-dm.org/Haris87/express-jwt-boilerplate.svg
