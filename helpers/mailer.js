@@ -22,16 +22,8 @@ let sendEmail = function(to, subject, text, html) {
     html: html // html body
   };
 
-  return new Promise((resolve, reject) => {
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return reject(error);
-      }
-
-      resolve(info);
-    });
-  });
+  // send mail with defined transport object
+  return transporter.sendMail(mailOptions);
 };
 
 module.exports = {
