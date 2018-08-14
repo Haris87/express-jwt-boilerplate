@@ -43,7 +43,7 @@ app.use("/auth", auth);
 
 // restricted access routes
 app.use("/me", jwt, me);
-app.use("/users", jwt, users);
+app.use("/users", users);
 
 // swagger documentation
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
