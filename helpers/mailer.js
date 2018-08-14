@@ -1,5 +1,6 @@
 "use strict";
 const nodemailer = require("nodemailer");
+const chalk = require("chalk");
 require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
@@ -11,6 +12,14 @@ const transporter = nodemailer.createTransport({
     pass: process.env.GMAIL_PASSWORD
   }
 });
+
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(`${chalk.blue('Nodemailer')}: Failed to connect to GMail SMTP, ensure credentials are correct.`);
+  } else {
+    console.log(`${chalk.blue('Nodemailer')}: Successfully connected to GMail SMTP.`);
+  }
+})
 
 const sendEmail = (to, subject, text, html) => {
   // setup email data with unicode symbols
