@@ -64,14 +64,15 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
-      console.error(`${chalk.white('HTTP')}: ${bind} requires elevated privileges`);
+      console.error(`${chalk.white('HTTP')}: ${error.code} - ${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case "EADDRINUSE":
-      console.error(`${chalk.white('HTTP')}: ${bind} is already in use`);
+      console.error(`${chalk.white('HTTP')}: ${error.code} - ${bind} is already in use`);
       process.exit(1);
       break;
     default:
+      console.error(`${chalk.white('HTTP')}: ${error.code} - Unknown error`);
       throw error;
   }
 }
