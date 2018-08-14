@@ -12,10 +12,10 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-let sendEmail = function(to, subject, text, html) {
+const sendEmail = (to, subject, text, html) => {
   // setup email data with unicode symbols
-  let mailOptions = {
-    from: '"" <' + process.env.GMAIL_ACCOUNT + ">", // sender address
+  const mailOptions = {
+    from: process.env.GMAIL_ACCOUNT, // sender address
     to: to,
     subject: subject, // Subject line
     text: text, // plain text body
