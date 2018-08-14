@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const hash = require("../helpers/hash");
 const mailer = require("../helpers/mailer");
-const exception = require("../helpers/exception");
+const HTTPException = require("./helpers/http-exception");
 
 const router = express.Router();
 require("dotenv").config();
@@ -40,7 +40,7 @@ function loginUser(req, res, next) {
         const token = jwt.sign({ user: user }, process.env.JWT_SECRET);
         res.send({ token: token });
       } else {
-        throw exception(401, "Wrong credentials");
+        throw new HTTPException(401, "Wrong credentials");
       }
     })
     .catch(next);
