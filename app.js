@@ -5,6 +5,7 @@ const logger = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const helmet = require("helmet");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger.json");
 
@@ -20,6 +21,9 @@ const me = require("./controllers/me");
 
 const app = express();
 db.connect();
+
+// Set basic security headers
+app.use(helmet());
 
 // enable cors
 app.use(cors());

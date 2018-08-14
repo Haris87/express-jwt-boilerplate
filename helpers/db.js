@@ -14,7 +14,7 @@ const connect = () => {
       }
     }
   );
-  // Regex with positive look-ahead and look-behind
+  // Regex with positive look-ahead and look-behind to extract URL
   console.log(`${chalk.green('MongoDB')}: Successfully connected to ${connectionURL.match(/(?<=@).*(?=:)/g)}`);
 }
 

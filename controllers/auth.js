@@ -5,23 +5,45 @@ const hash = require("../helpers/hash");
 const mailer = require("../helpers/mailer");
 const HTTPException = require("../helpers/http-exception");
 
+const RateLimit = require("express-rate-limit");
+
+const loginLimiter = new RateLimit({
+  windowMs: 60*60*1000, // 1 hour window
+  max: 10, // start blocking after 10 requests
+  message: "Too many login attempts, please try again after an hour"
+});
+
+const registerLimiter = new RateLimit({
+  windowMs: 60*60*1000, // 1 hour window
+  delayAfter: 1, // begin slowing down responses after the first request
+  delayMs: 3*1000, // slow down subsequent responses by 3 seconds per request
+  max: 5, // start blocking after 5 requests
+  message: "Too many accounts created, please try again after an hour"
+});
+
+const resetLimiter = new RateLimit({
+  windowMs: 60*60*1000, // 1 hour window
+  max: 2, // start blocking after 2 requests
+  message: "Too many password resets requested, please try again after an hour"
+});
+
 const router = express.Router();
 require("dotenv").config();
 
 /**
  * login user
  */
-router.post("/login", loginUser);
+router.post("/login", loginLimiter, loginUser);
 
 /**
  * register new user
  */
-router.post("/register", registrerUser);
+router.post("/register", registerLimiter, registrerUser);
 
 /**
  * forgot password
  */
-router.post("/forgot", forgotPassword);
+router.post("/forgot", resetLimiter, forgotPassword);
 
 /**
  * FUNCTIONS IMPLEMENTATION
@@ -57,11 +79,9 @@ function registrerUser(req, res, next) {
   user
     .save()
     .then(user => {
-      // fetch user from db to hide private fields
-      return User.findOne({ username: user.username });
-    })
-    .then(safeUser => {
-      const token = jwt.sign({ user: safeUser }, process.env.JWT_SECRET);
+      // Delete private field
+      delete user.password;
+      const token = jwt.sign({ user: user }, process.env.JWT_SECRET);
       res.send({ token: token });
     })
     .catch(next);
@@ -73,10 +93,7 @@ function forgotPassword(req, res, next) {
     .select("+password")
     .then(user => {
       if (user === null) {
-        throw {
-          status: 404,
-          error: "User with given email not found in database."
-        };
+        throw new HTTPException(404, "User with given email not found in database");
       }
 
       // create new password
