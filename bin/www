@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+require('better-log/install')
 const chalk = require("chalk");
 const app = require("../app");
 const debug = require("debug")("demo:server");
