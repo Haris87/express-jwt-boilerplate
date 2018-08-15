@@ -76,8 +76,7 @@ function sanitizeInput(request, requiredParams) {
 function loginUser(req, res, next) {
   req.body = sanitizeInput(req.body, ['username', 'password']);
 
-  const username = req.body.username;
-  const password = hash(req.body.password);
+  const { username, password } = req.body;
 
   User.findOne({
     username: username,
@@ -99,11 +98,8 @@ function loginUser(req, res, next) {
 function registerUser(req, res, next) {
   req.body = sanitizeInput(req.body, ['username', 'password', 'email']);
 
-  const user = new User();
+  const user = new User(req.body);
 
-  user.username = req.body.username;
-  user.email = req.body.email;
-  user.password = hash(req.body.password);
   user.createdAtUTC = new Date();
 
   user
@@ -119,7 +115,7 @@ function registerUser(req, res, next) {
 
 function forgotPassword(req, res, next) {
   req.body = sanitizeInput(req.body, ['email']);
-  let password;
+
   User.findOne({ email: req.body.email })
     .select("+password")
     .then(user => {
@@ -128,7 +124,7 @@ function forgotPassword(req, res, next) {
       }
 
       // create new password
-      password = hash(user.password);
+      this.password = hash(user.password);
       return User.findOneAndUpdate(
         { email: req.body.email },
         { password: hash(password) }
@@ -137,8 +133,9 @@ function forgotPassword(req, res, next) {
     .then(user => {
       const text =
         "Your new password is " +
-        password +
+        this.password +
         ". You should change it from your profile page as soon as you log in.";
+      delete this.password;
       return mailer.sendEmail(user.email, "Reset Password", text, text);
     })
     .then(response => {
