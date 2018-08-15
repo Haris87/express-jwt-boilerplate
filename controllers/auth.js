@@ -38,7 +38,7 @@ router.post("/login", loginLimiter, loginUser);
 /**
  * register new user
  */
-router.post("/register", registerLimiter, registrerUser);
+router.post("/register", registerLimiter, registerUser);
 
 /**
  * forgot password
@@ -49,7 +49,33 @@ router.post("/forgot", resetLimiter, forgotPassword);
  * FUNCTIONS IMPLEMENTATION
  */
 
+function sanitizeInput(request, requiredParams) {
+  const sanitizedRequest = new Object();
+  requiredParams.forEach((key) => {
+    sanitizedRequest[key] = request[key];
+    if (request[key] === undefined) {
+      throw new HTTPException(401, "Invalid Credentials");
+    }
+    if (key === 'username') {
+      // GitHub Regex for usernames
+      if (!request[key].match(/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i)) {
+        throw new HTTPException(401, "Invalid Credentials");
+      }
+    } else if (key === 'password') {
+      sanitizedRequest[key] = hash(sanitizedRequest[key]);
+    } else if (key === 'email') {
+      // Email Regex of HTML5 Spec: https://www.w3.org/TR/html5/forms.html#valid-e-mail-address
+      if (!request[key].match(/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)) {
+        throw new HTTPException(401, "Invalid Credentials");
+      }
+    }
+  });
+  return sanitizedRequest;
+}
+
 function loginUser(req, res, next) {
+  req.body = sanitizeInput(req.body, ['username', 'password']);
+
   const username = req.body.username;
   const password = hash(req.body.password);
 
@@ -62,13 +88,17 @@ function loginUser(req, res, next) {
         const token = jwt.sign({ user: user }, process.env.JWT_SECRET);
         res.send({ token: token });
       } else {
-        throw new HTTPException(401, "Wrong credentials");
+        throw new HTTPException(401, "Invalid Credentials");
       }
     })
-    .catch(next);
+    .catch((err) => {
+
+    });
 }
 
-function registrerUser(req, res, next) {
+function registerUser(req, res, next) {
+  req.body = sanitizeInput(req.body, ['username', 'password', 'email']);
+
   const user = new User();
 
   user.username = req.body.username;
@@ -88,6 +118,7 @@ function registrerUser(req, res, next) {
 }
 
 function forgotPassword(req, res, next) {
+  req.body = sanitizeInput(req.body, ['email']);
   let password;
   User.findOne({ email: req.body.email })
     .select("+password")
