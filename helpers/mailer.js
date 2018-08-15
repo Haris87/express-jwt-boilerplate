@@ -15,9 +15,9 @@ const transporter = nodemailer.createTransport({
 
 transporter.verify((error, success) => {
   if (error) {
-    console.log(`${chalk.blue('Nodemailer')}: Failed to connect to GMail SMTP, ensure credentials are correct.`);
+    console.log(`${chalk.cyan('Nodemailer')}: Failed to connect to GMail SMTP, ensure credentials are correct`);
   } else {
-    console.log(`${chalk.blue('Nodemailer')}: Successfully connected to GMail SMTP.`);
+    console.log(`${chalk.cyan('Nodemailer')}: Successfully connected to GMail SMTP`);
   }
 })
 
